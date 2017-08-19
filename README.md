@@ -43,6 +43,13 @@ namespace AspNetCoreApplicationInsightsApi.Code
 }
 ```
 
+Open the Startup.cs file and add the following code into the beginning of the ConfigureServices() method.
+
+`Startup.cs`
+```csharp
+services.Configure<ApplicationInsightsSettings>(Configuration.GetSection("ApplicationInsightsSettings"));
+```
+
 Now, create other directory called 'Models' and two classes files with the following contents:
 
 `ErrorViewModel.cs`
