@@ -1,0 +1,74 @@
+﻿@model AspNetCoreApplicationInsightsApi.Models.ExceptionViewModel
+@{
+
+}
+<div class="page-header">
+	<h2>@ViewData["Title"] <small>@ViewData["SubTitle"]</small></h2>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<section>
+			<form class="form-horizontal" asp-controller="Home" asp-action="Search" method="get">
+				<div class="panel panel-default">
+					<div class="panel-body" style="background-color: #f5f5f5;">
+						<div class="input-group">
+							<input type="text" class="form-control" name="idException" placeholder="You can search using the exception id field, example: '09cf8729-6e13-4f55-86df-9c7dba8a2773'" id="idException" value="" style="max-width: none;">
+							<span class="input-group-btn">
+								<button class="btn btn-primary" type="submit">Search</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</form>
+		</section>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<section>
+			@if (!Model.WasFound && Model.WasSearched)
+			{
+				<div class="alert alert-info" role="alert">No records found.</div>
+			}
+			else if (Model.WasSearched && Model.WasFound)
+			{
+				<div class="page-header">
+					<h3>Exception data</h3>
+				</div>
+				<p id="errorBox"></p>
+
+				<script>
+					function output(inp) {
+						document.getElementById("errorBox").innerHTML += '<pre><code>'+inp+'</code></pre>';
+					}
+
+					function syntaxHighlight(json) {
+						json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+						return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+							var cls = 'number';
+							if (/^"/.test(match)) {
+								if (/:$/.test(match)) {
+									cls = 'key';
+								} else {
+									cls = 'string';
+								}
+							} else if (/true|false/.test(match)) {
+								cls = 'boolean';
+							} else if (/null/.test(match)) {
+								cls = 'null';
+							}
+							return '<span class="' + cls + '">' + match + '</span>';
+						});
+					}
+
+					var obj = @Html.Raw(@Model.Description);
+					var str = JSON.stringify(obj, undefined, 4);
+
+					output(syntaxHighlight(str));
+				</script>
+			}
+		</section>
+	</div>
+</div>
