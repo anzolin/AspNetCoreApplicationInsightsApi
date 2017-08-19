@@ -1,4 +1,4 @@
-# AspNetCoreApplicationInsightsApi
+# ASP.NET Core 2.0 and Application Insights Api
 A simple sample project using ASP.NET Core 2.0 that connects to the Application Insights API and returns the exceptions.
 
 
