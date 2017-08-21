@@ -141,6 +141,8 @@ namespace AspNetCoreApplicationInsightsApi.Controllers
                         Description = exception
                     };
                 }
+
+                ViewData["Search"] = idException;
             }
 
             ViewData["Title"] = "Application Exception Lookup";
@@ -209,7 +211,7 @@ And lastly, create a view file in the Views/Home folder with the following conte
 				<div class="panel panel-default">
 					<div class="panel-body" style="background-color: #f5f5f5;">
 						<div class="input-group">
-							<input type="text" class="form-control" name="idException" placeholder="You can search using the exception id field, example: '09cf8729-6e13-4f55-86df-9c7dba8a2773'" id="idException" value="" style="max-width: none;">
+							<input type="text" class="form-control" name="idException" placeholder="You can search using the exception id field, example: '09cf8729-6e13-4f55-86df-9c7dba8a2773'" id="idException" value="@ViewData["Search"]" style="max-width: none;">
 							<span class="input-group-btn">
 								<button class="btn btn-primary" type="submit">Search</button>
 							</span>

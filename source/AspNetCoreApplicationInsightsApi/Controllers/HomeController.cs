@@ -55,6 +55,8 @@ namespace AspNetCoreApplicationInsightsApi.Controllers
                         Description = exception
                     };
                 }
+
+                ViewData["Search"] = idException;
             }
 
             ViewData["Title"] = "Application Exception Lookup";
